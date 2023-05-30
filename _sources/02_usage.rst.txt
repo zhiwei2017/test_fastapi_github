@@ -9,12 +9,7 @@ Classes
 ..
     List here the important classes
 
-Database Schemas
-::::::::::::::::
-..
-    Are you using a database? add the schema here.
 
-+ ``AuthUser``: stores the user for authentication. ``username`` and ``hashed_password`` are required. Only superuser can create new users.
 
 Local Development
 -----------------
@@ -34,18 +29,7 @@ Requisite Environment Variables
    * - MODE
      - ``DEV``, ``TEST``, ``PROD``
      - Specifying deployment environment configurations (values = {DEV, TEST, PROD}).
-   * - POSTGRES_SERVER
-     - ``dummy-postgres-server.example.com:5432``
-     - Database server URI.
-   * - POSTGRES_USER
-     - ``dummy_user``
-     - User name for database connection.
-   * - POSTGRES_PASSWORD
-     - ``dummy_password``
-     - User password for database connection.
-   * - POSTGRES_DB
-     - ``test_fastapi_github_dev``
-     - Database name.
+   
 
 Running the API Service locally
 :::::::::::::::::::::::::::::::
@@ -69,9 +53,7 @@ Via Docker-Compose (Recommended)
     $ ./docker-compose.sh run --service-ports --rm test_fastapi_github
 
    * The service could also run in detached mode with flag ``-d``.
-   * When the `docker-compose`_ starts the service, it will execute the SQL
-     script ``./docker/init.sql`` to create a superuser in ``AuthUser`` table.
-     (The credential of the default user is [username: "dummy", password: "123456"])
+   
 
 4. To stop and remove the running containers, please run::
 
@@ -98,13 +80,7 @@ in the examples, it is done with docker.
 
     $ pip install -e .
 
-5. To host the database locally, execute the below docker commands::
-
-    $ docker pull postgres:latest
-    $ docker run -p 5432:5432 -e POSTGRES_PASSWORD='mysecretpassword' --rm -d --name db postgres:latest
-
-6. Execute the SQL script ``./docker/init.sql`` to create a superuser in ``AuthUser`` table. (The credential of the default user is [username: "dummy", password: "123456"])
-7. Run the service via::
+6. Run the service via::
 
     $ python test_fastapi_github/main.py
 
@@ -141,13 +117,7 @@ in the examples, it is done with docker.
 
 1. Setup a virtual (or conda) environment.
 2. Setup the used environment variables locally (see section above).
-3. To host the database locally, execute the below docker commands::
-
-    $ docker pull postgres:latest
-    $ docker run -p 5432:5432 -e POSTGRES_PASSWORD='mysecretpassword' --rm -d --name db postgres:latest
-
-4. Execute the SQL script ``./docker/init.sql`` to create a superuser in ``AuthUser`` table. (The credential of the default user is [username: "dummy", password: "123456"])
-5. Run the service via::
+3. Run the service via::
 
     $ make test
 
