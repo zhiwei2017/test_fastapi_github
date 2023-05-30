@@ -8,6 +8,26 @@ test_fastapi_github.app.api.base
 .. automodule:: test_fastapi_github.app.api.base
     :members:
 
+test_fastapi_github.app.api.auth
+--------------------------------
+.. automodule:: test_fastapi_github.app.api.auth
+    :members:
+
+test_fastapi_github.app.db.session
+----------------------------------
+.. automodule:: test_fastapi_github.app.db.session
+    :members:
+
+test_fastapi_github.app.db.base
+-------------------------------
+.. automodule:: test_fastapi_github.app.db.base
+    :members:
+
+test_fastapi_github.app.db.models.auth
+--------------------------------------
+.. automodule:: test_fastapi_github.app.db.models.auth
+    :members:
+
 test_fastapi_github.app.events.base
 -----------------------------------
 .. automodule:: test_fastapi_github.app.events.base
@@ -23,9 +43,24 @@ test_fastapi_github.app.schemas.base
 .. automodule:: test_fastapi_github.app.schemas.base
     :members:
 
+test_fastapi_github.app.schemas.auth
+------------------------------------
+.. automodule:: test_fastapi_github.app.schemas.auth
+    :members:
+
 test_fastapi_github.app.utils.logging
 -------------------------------------
 .. automodule:: test_fastapi_github.app.utils.logging
+    :members:
+
+test_fastapi_github.app.utils.security
+--------------------------------------
+.. automodule:: test_fastapi_github.app.utils.security
+    :members:
+
+test_fastapi_github.app.utils.storage
+-------------------------------------
+.. automodule:: test_fastapi_github.app.utils.storage
     :members:
 
 test_fastapi_github.app.application

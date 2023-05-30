@@ -82,11 +82,40 @@
 <span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
 <span class="kn">from</span> <span class="nn">starlette.middleware.cors</span> <span class="kn">import</span> <span class="n">CORSMiddleware</span>
 <span class="kn">from</span> <span class="nn">starlette.middleware.base</span> <span class="kn">import</span> <span class="n">BaseHTTPMiddleware</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
+<span class="kn">from</span> <span class="nn">.api.auth</span> <span class="kn">import</span> <span class="n">login</span><span class="p">,</span> <span class="n">create_user</span>
 <span class="kn">from</span> <span class="nn">.api</span> <span class="kn">import</span> <span class="n">api_router</span>
 <span class="kn">from</span> <span class="nn">.configs</span> <span class="kn">import</span> <span class="n">get_settings</span>
+<span class="kn">from</span> <span class="nn">.db</span> <span class="kn">import</span> <span class="n">Base</span><span class="p">,</span> <span class="n">engine</span>
 <span class="kn">from</span> <span class="nn">.events</span> <span class="kn">import</span> <span class="n">startup_handler</span><span class="p">,</span> <span class="n">shutdown_handler</span>
 <span class="kn">from</span> <span class="nn">.middlewares</span> <span class="kn">import</span> <span class="n">log_time</span>
 <span class="kn">from</span> <span class="nn">.version</span> <span class="kn">import</span> <span class="n">__version__</span>
+
+
+<div class="viewcode-block" id="create_db_tables"><a class="viewcode-back" href="../../../03_source.html#test_fastapi_github.app.application.create_db_tables">[docs]</a><span class="k">def</span> <span class="nf">create_db_tables</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create all tables in database.&quot;&quot;&quot;</span>
+    <span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">create_all</span><span class="p">(</span><span class="n">engine</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="update_schema_name"><a class="viewcode-back" href="../../../03_source.html#test_fastapi_github.app.application.update_schema_name">[docs]</a><span class="k">def</span> <span class="nf">update_schema_name</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Updates the Pydantic schema name for a FastAPI function that takes</span>
+<span class="sd">    in a fastapi.UploadFile = File(...) or bytes = File(...).</span>
+
+<span class="sd">    This is a known issue that was reported on FastAPI#1442 in which</span>
+<span class="sd">    the schema for file upload routes were auto-generated with no</span>
+<span class="sd">    customization options. This renames the auto-generated schema to</span>
+<span class="sd">    something more useful and clear.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        app (FastAPI): The FastAPI application to modify.</span>
+<span class="sd">        function (Callable): The function object to modify.</span>
+<span class="sd">        name (str): The new name of the schema.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">route</span> <span class="ow">in</span> <span class="n">app</span><span class="o">.</span><span class="n">routes</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">route</span><span class="o">.</span><span class="n">endpoint</span> <span class="ow">is</span> <span class="n">function</span><span class="p">:</span>
+            <span class="n">route</span><span class="o">.</span><span class="n">body_field</span><span class="o">.</span><span class="n">type_</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">name</span>
+            <span class="k">break</span></div>
 
 
 <div class="viewcode-block" id="create_application"><a class="viewcode-back" href="../../../03_source.html#test_fastapi_github.app.application.create_application">[docs]</a><span class="k">def</span> <span class="nf">create_application</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">FastAPI</span><span class="p">:</span>
@@ -125,6 +154,13 @@
 
     <span class="c1"># add defined middleware functions</span>
     <span class="n">application</span><span class="o">.</span><span class="n">add_middleware</span><span class="p">(</span><span class="n">BaseHTTPMiddleware</span><span class="p">,</span> <span class="n">dispatch</span><span class="o">=</span><span class="n">log_time</span><span class="p">)</span>
+
+    <span class="c1"># update schema name to avoid automatically generated name from openapi</span>
+    <span class="n">update_schema_name</span><span class="p">(</span><span class="n">application</span><span class="p">,</span> <span class="n">login</span><span class="p">,</span> <span class="s2">&quot;LoginForm&quot;</span><span class="p">)</span>
+    <span class="n">update_schema_name</span><span class="p">(</span><span class="n">application</span><span class="p">,</span> <span class="n">create_user</span><span class="p">,</span> <span class="s2">&quot;AuthUserCreationForm&quot;</span><span class="p">)</span>
+
+    <span class="c1"># create tables in db</span>
+    <span class="n">create_db_tables</span><span class="p">()</span>
 
     <span class="k">return</span> <span class="n">application</span></div>
 </pre></div>

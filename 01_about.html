@@ -156,6 +156,9 @@
 <tr class="row-even"><td><p>MODE</p></td>
 <td><p>Run the API service in which MODE (“DEV”, “TEST”, “PROD”).</p></td>
 </tr>
+<tr class="row-odd"><td><p>DB_CONNECTION</p></td>
+<td><p>Postgres DB URI for building docker image.</p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -240,10 +243,19 @@
 <tr class="row-even"><td><p><strong>/api/v1/version</strong></p></td>
 <td><p>API Service version information</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>/docs</strong></p></td>
+<tr class="row-odd"><td><p><strong>/api/v1/auth/token</strong></p></td>
+<td><p>Create a new authorization token.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>/api/v1/auth/user/new</strong></p></td>
+<td><p>Create a new user</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>/api/v1/auth/user/info</strong></p></td>
+<td><p>get current user information</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>/docs</strong></p></td>
 <td><p>Open API documentation</p></td>
 </tr>
-<tr class="row-even"><td><p><strong>/api/v1/openapi.json</strong></p></td>
+<tr class="row-odd"><td><p><strong>/api/v1/openapi.json</strong></p></td>
 <td><p>Open API information in json format</p></td>
 </tr>
 </tbody>

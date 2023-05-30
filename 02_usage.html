@@ -51,6 +51,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#project-components">Project Components</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#database-schemas">Database Schemas</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#local-development">Local Development</a><ul>
@@ -106,6 +107,12 @@
 <section id="classes">
 <h3>Classes<a class="headerlink" href="#classes" title="Permalink to this heading"></a></h3>
 </section>
+<section id="database-schemas">
+<h3>Database Schemas<a class="headerlink" href="#database-schemas" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">AuthUser</span></code>: stores the user for authentication. <code class="docutils literal notranslate"><span class="pre">username</span></code> and <code class="docutils literal notranslate"><span class="pre">hashed_password</span></code> are required. Only superuser can create new users.</p></li>
+</ul>
+</section>
 </section>
 <section id="local-development">
 <h2>Local Development<a class="headerlink" href="#local-development" title="Permalink to this heading"></a></h2>
@@ -129,6 +136,22 @@
 <tr class="row-even"><td><p>MODE</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">DEV</span></code>, <code class="docutils literal notranslate"><span class="pre">TEST</span></code>, <code class="docutils literal notranslate"><span class="pre">PROD</span></code></p></td>
 <td><p>Specifying deployment environment configurations (values = {DEV, TEST, PROD}).</p></td>
+</tr>
+<tr class="row-odd"><td><p>POSTGRES_SERVER</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dummy-postgres-server.example.com:5432</span></code></p></td>
+<td><p>Database server URI.</p></td>
+</tr>
+<tr class="row-even"><td><p>POSTGRES_USER</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dummy_user</span></code></p></td>
+<td><p>User name for database connection.</p></td>
+</tr>
+<tr class="row-odd"><td><p>POSTGRES_PASSWORD</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dummy_password</span></code></p></td>
+<td><p>User password for database connection.</p></td>
+</tr>
+<tr class="row-even"><td><p>POSTGRES_DB</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test_fastapi_github_dev</span></code></p></td>
+<td><p>Database name.</p></td>
 </tr>
 </tbody>
 </table>
@@ -154,6 +177,9 @@ url <code class="docutils literal notranslate"><span class="pre">http://localhos
 </div>
 <ul class="simple">
 <li><p>The service could also run in detached mode with flag <code class="docutils literal notranslate"><span class="pre">-d</span></code>.</p></li>
+<li><p>When the <a class="reference external" href="https://docs.docker.com/compose/">docker-compose</a> starts the service, it will execute the SQL
+script <code class="docutils literal notranslate"><span class="pre">./docker/init.sql</span></code> to create a superuser in <code class="docutils literal notranslate"><span class="pre">AuthUser</span></code> table.
+(The credential of the default user is [username: “dummy”, password: “123456”])</p></li>
 </ul>
 </li>
 <li><p>To stop and remove the running containers, please run:</p>
@@ -187,8 +213,13 @@ in the examples, it is done with docker.</p>
 </pre></div>
 </div>
 </li>
-</ol>
-<ol class="arabic" start="6">
+<li><p>To host the database locally, execute the below docker commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ docker pull postgres:latest
+$ docker run -p 5432:5432 -e POSTGRES_PASSWORD=&#39;mysecretpassword&#39; --rm -d --name db postgres:latest
+</pre></div>
+</div>
+</li>
+<li><p>Execute the SQL script <code class="docutils literal notranslate"><span class="pre">./docker/init.sql</span></code> to create a superuser in <code class="docutils literal notranslate"><span class="pre">AuthUser</span></code> table. (The credential of the default user is [username: “dummy”, password: “123456”])</p></li>
 <li><p>Run the service via:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python test_fastapi_github/main.py
 </pre></div>
@@ -231,6 +262,13 @@ in the examples, it is done with docker.</p>
 <ol class="arabic">
 <li><p>Setup a virtual (or conda) environment.</p></li>
 <li><p>Setup the used environment variables locally (see section above).</p></li>
+<li><p>To host the database locally, execute the below docker commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ docker pull postgres:latest
+$ docker run -p 5432:5432 -e POSTGRES_PASSWORD=&#39;mysecretpassword&#39; --rm -d --name db postgres:latest
+</pre></div>
+</div>
+</li>
+<li><p>Execute the SQL script <code class="docutils literal notranslate"><span class="pre">./docker/init.sql</span></code> to create a superuser in <code class="docutils literal notranslate"><span class="pre">AuthUser</span></code> table. (The credential of the default user is [username: “dummy”, password: “123456”])</p></li>
 <li><p>Run the service via:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ make test
 </pre></div>
