@@ -178,27 +178,16 @@ tests, including testing other Python versions with tox:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ make flake8
 $ make mypy
 $ make bandit
-$ ./docker-compose.sh build test_test_fastapi_github
-$ ./docker-compose.sh run --rm test_test_fastapi_github
-$ ./docker-compose.sh stop &amp;&amp; ./docker-compose.sh rm -f &amp;&amp; ./docker-compose.sh clean
+$ make test
 $ tox
 </pre></div>
 </div>
 <p>To get <strong>flake8</strong>, <strong>mypy</strong>, <strong>bandit</strong> and <strong>tox</strong>, just pip install them into your virtualenv.</p>
 </li>
-<li><p>Run the API service locally via <a class="reference external" href="https://docs.docker.com/compose/">docker-compose</a> to check your changes:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./docker-compose.sh build test_fastapi_github
-$ ./docker-compose.sh run --service-ports --rm test_fastapi_github
+<li><p>Run the API service locally to check your changes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python test_fastapi_github/main.py
 </pre></div>
 </div>
-<ul>
-<li><p>The service could also run in detached mode with flag <code class="docutils literal notranslate"><span class="pre">-d</span></code>.</p></li>
-<li><p>To stop and remove the running containers, please execute:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./docker-compose.sh stop &amp;&amp; ./docker-compose.sh rm -f &amp;&amp; ./docker-compose.sh clean
-</pre></div>
-</div>
-</li>
-</ul>
 </li>
 <li><p>Commit your changes and push your branch to GitHub:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git add .

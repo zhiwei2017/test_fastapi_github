@@ -8,16 +8,6 @@ test_fastapi_github.app.api.base
 .. automodule:: test_fastapi_github.app.api.base
     :members:
 
-test_fastapi_github.app.db.session
-----------------------------------
-.. automodule:: test_fastapi_github.app.db.session
-    :members:
-
-test_fastapi_github.app.db.base
--------------------------------
-.. automodule:: test_fastapi_github.app.db.base
-    :members:
-
 test_fastapi_github.app.events.base
 -----------------------------------
 .. automodule:: test_fastapi_github.app.events.base

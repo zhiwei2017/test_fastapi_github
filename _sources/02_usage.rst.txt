@@ -9,10 +9,6 @@ Classes
 ..
     List here the important classes
 
-Database Schemas
-::::::::::::::::
-..
-    Are you using a database? add the schema here.
 
 
 Local Development
@@ -33,18 +29,7 @@ Requisite Environment Variables
    * - MODE
      - ``DEV``, ``TEST``, ``PROD``
      - Specifying deployment environment configurations (values = {DEV, TEST, PROD}).
-   * - POSTGRES_SERVER
-     - ``dummy-postgres-server.example.com:5432``
-     - Database server URI.
-   * - POSTGRES_USER
-     - ``dummy_user``
-     - User name for database connection.
-   * - POSTGRES_PASSWORD
-     - ``dummy_password``
-     - User password for database connection.
-   * - POSTGRES_DB
-     - ``test_fastapi_github_dev``
-     - Database name.
+   
 
 Running the API Service locally
 :::::::::::::::::::::::::::::::
@@ -95,12 +80,7 @@ in the examples, it is done with docker.
 
     $ pip install -e .
 
-5. To host the database locally, execute the below docker commands::
-
-    $ docker pull postgres:latest
-    $ docker run -p 5432:5432 -e POSTGRES_PASSWORD='mysecretpassword' --rm -d --name db postgres:latest
-
-7. Run the service via::
+6. Run the service via::
 
     $ python test_fastapi_github/main.py
 
@@ -137,12 +117,7 @@ in the examples, it is done with docker.
 
 1. Setup a virtual (or conda) environment.
 2. Setup the used environment variables locally (see section above).
-3. To host the database locally, execute the below docker commands::
-
-    $ docker pull postgres:latest
-    $ docker run -p 5432:5432 -e POSTGRES_PASSWORD='mysecretpassword' --rm -d --name db postgres:latest
-
-4. Run the service via::
+3. Run the service via::
 
     $ make test
 

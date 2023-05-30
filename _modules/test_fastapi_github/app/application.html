@@ -84,15 +84,9 @@
 <span class="kn">from</span> <span class="nn">starlette.middleware.base</span> <span class="kn">import</span> <span class="n">BaseHTTPMiddleware</span>
 <span class="kn">from</span> <span class="nn">.api</span> <span class="kn">import</span> <span class="n">api_router</span>
 <span class="kn">from</span> <span class="nn">.configs</span> <span class="kn">import</span> <span class="n">get_settings</span>
-<span class="kn">from</span> <span class="nn">.db</span> <span class="kn">import</span> <span class="n">Base</span><span class="p">,</span> <span class="n">engine</span>
 <span class="kn">from</span> <span class="nn">.events</span> <span class="kn">import</span> <span class="n">startup_handler</span><span class="p">,</span> <span class="n">shutdown_handler</span>
 <span class="kn">from</span> <span class="nn">.middlewares</span> <span class="kn">import</span> <span class="n">log_time</span>
 <span class="kn">from</span> <span class="nn">.version</span> <span class="kn">import</span> <span class="n">__version__</span>
-
-
-<div class="viewcode-block" id="create_db_tables"><a class="viewcode-back" href="../../../03_source.html#test_fastapi_github.app.application.create_db_tables">[docs]</a><span class="k">def</span> <span class="nf">create_db_tables</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create all tables in database.&quot;&quot;&quot;</span>
-    <span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">create_all</span><span class="p">(</span><span class="n">engine</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="create_application"><a class="viewcode-back" href="../../../03_source.html#test_fastapi_github.app.application.create_application">[docs]</a><span class="k">def</span> <span class="nf">create_application</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">FastAPI</span><span class="p">:</span>
@@ -131,9 +125,6 @@
 
     <span class="c1"># add defined middleware functions</span>
     <span class="n">application</span><span class="o">.</span><span class="n">add_middleware</span><span class="p">(</span><span class="n">BaseHTTPMiddleware</span><span class="p">,</span> <span class="n">dispatch</span><span class="o">=</span><span class="n">log_time</span><span class="p">)</span>
-
-    <span class="c1"># create tables in db</span>
-    <span class="n">create_db_tables</span><span class="p">()</span>
 
     <span class="k">return</span> <span class="n">application</span></div>
 </pre></div>
