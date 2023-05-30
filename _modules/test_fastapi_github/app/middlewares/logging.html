@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>test_fastapi_github_1.app.events.base &mdash; test-fastapi-github-1 0.1.0 documentation</title>
+  <title>test_fastapi_github.app.middlewares.logging &mdash; test-fastapi-github 0.1.0 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            test-fastapi-github-1
+            test-fastapi-github
           </a>
               <div class="version">
                 0.1.0
@@ -44,7 +44,7 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../01_about.html">test-fastapi-github-1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../01_about.html">test-fastapi-github</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../02_usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../03_source.html">Source</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../04_authors.html">Authors</a></li>
@@ -57,7 +57,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">test-fastapi-github-1</a>
+          <a href="../../../../index.html">test-fastapi-github</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -66,7 +66,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">test_fastapi_github_1.app.events.base</li>
+      <li class="breadcrumb-item active">test_fastapi_github.app.middlewares.logging</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -75,29 +75,41 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for test_fastapi_github_1.app.events.base</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Define the start up events and shut down events.</span>
-
-<span class="sd">Please be aware that you can define multiple events and add them to the FastAPI</span>
-<span class="sd">instance, and the adding order decides the executing order.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+  <h1>Source code for test_fastapi_github.app.middlewares.logging</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Define logging related middleware functions.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">Request</span><span class="p">,</span> <span class="n">Response</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
 <span class="kn">from</span> <span class="nn">..configs</span> <span class="kn">import</span> <span class="n">get_settings</span>
+<span class="kn">from</span> <span class="nn">..utils.logging</span> <span class="kn">import</span> <span class="n">request_msg_format</span><span class="p">,</span> <span class="n">get_request_msg_args</span>
 
 <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">PROJECT_SLUG</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="startup_handler"><a class="viewcode-back" href="../../../../03_source.html#test_fastapi_github_1.app.events.base.startup_handler">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">startup_handler</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Dummy startup event, it will be executed before the app is ready, such</span>
-<span class="sd">    as loading ml model, creating superuser in DB etc.&quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Starting up ...&quot;</span><span class="p">)</span></div>
+<div class="viewcode-block" id="log_time"><a class="viewcode-back" href="../../../../03_source.html#test_fastapi_github.app.middlewares.logging.log_time">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">log_time</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span> <span class="n">call_next</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Middleware function for logging the processing time of the request.</span>
 
+<span class="sd">    It&#39;s used as an example for showing people how to define middleware</span>
+<span class="sd">    functions and add them to the FastAPI instance.</span>
 
-<div class="viewcode-block" id="shutdown_handler"><a class="viewcode-back" href="../../../../03_source.html#test_fastapi_github_1.app.events.base.shutdown_handler">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">shutdown_handler</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Dummy shutdown event, it will be executed before the app is shutting</span>
-<span class="sd">    down, such as removing temporary files, close DB connection etc.&quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Shutting down ...&quot;</span><span class="p">)</span></div>
+<span class="sd">    Args:</span>
+<span class="sd">        request (Request): incoming request to API service.</span>
+<span class="sd">        call_next (Callable): the corresponding endpoint function</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Response: a json response returned by the endpoint function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">call_next</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+    <span class="n">process_time</span> <span class="o">=</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">get_request_msg_args</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">process_time</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">request_msg_format</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span></div>
 </pre></div>
 
            </div>

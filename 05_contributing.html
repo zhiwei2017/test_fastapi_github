@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contributing &mdash; test-fastapi-github-1 0.1.0 documentation</title>
+  <title>Contributing &mdash; test-fastapi-github 0.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -32,7 +32,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            test-fastapi-github-1
+            test-fastapi-github
           </a>
               <div class="version">
                 0.1.0
@@ -46,7 +46,7 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="01_about.html">test-fastapi-github-1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01_about.html">test-fastapi-github</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02_usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03_source.html">Source</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04_authors.html">Authors</a></li>
@@ -75,7 +75,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">test-fastapi-github-1</a>
+          <a href="index.html">test-fastapi-github</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -119,8 +119,8 @@ and <strong>help wanted</strong> is open to whoever wants to implement it.</p>
 </section>
 <section id="write-documentation">
 <h3>Write Documentation<a class="headerlink" href="#write-documentation" title="Permalink to this heading"></a></h3>
-<p>test-fastapi-github-1 could always use more documentation, whether as part of the
-official test-fastapi-github-1 docs, in docstrings, or even on the web in blog posts,
+<p>test-fastapi-github could always use more documentation, whether as part of the
+official test-fastapi-github docs, in docstrings, or even on the web in blog posts,
 articles, and such.</p>
 <section id="documentation-style">
 <h4>Documentation Style<a class="headerlink" href="#documentation-style" title="Permalink to this heading"></a></h4>
@@ -144,21 +144,21 @@ articles, and such.</p>
 </section>
 <section id="get-started">
 <h2>Get Started!<a class="headerlink" href="#get-started" title="Permalink to this heading"></a></h2>
-<p>Ready to contribute? Here’s how to set up <cite>test_fastapi_github_1</cite> for local development.</p>
+<p>Ready to contribute? Here’s how to set up <cite>test_fastapi_github</cite> for local development.</p>
 <ol class="arabic">
-<li><p>Fork the <cite>test_fastapi_github_1</cite> repo on GitHub.</p></li>
+<li><p>Fork the <cite>test_fastapi_github</cite> repo on GitHub.</p></li>
 <li><p>Clone your fork locally:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone git@your_repo_url.git
 </pre></div>
 </div>
 </li>
 <li><p>Install your local copy into a virtualenv. Assuming you have virtualenv installed, this is how you set up your fork for local development:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m virtualenv test_fastapi_github_1-venv
-$ source test_fastapi_github_1-venv/bin/activate
-$ cd test_fastapi_github_1/
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m virtualenv test_fastapi_github-venv
+$ source test_fastapi_github-venv/bin/activate
+$ cd test_fastapi_github/
 </pre></div>
 </div>
-<p>Now you can install <cite>test_fastapi_github_1</cite> in develop mode in your virtual environment:</p>
+<p>Now you can install <cite>test_fastapi_github</cite> in develop mode in your virtual environment:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python setup.py develop
 </pre></div>
 </div>
@@ -178,8 +178,8 @@ tests, including testing other Python versions with tox:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ make flake8
 $ make mypy
 $ make bandit
-$ ./docker-compose.sh build test_test_fastapi_github_1
-$ ./docker-compose.sh run --rm test_test_fastapi_github_1
+$ ./docker-compose.sh build test_test_fastapi_github
+$ ./docker-compose.sh run --rm test_test_fastapi_github
 $ ./docker-compose.sh stop &amp;&amp; ./docker-compose.sh rm -f &amp;&amp; ./docker-compose.sh clean
 $ tox
 </pre></div>
@@ -187,15 +187,12 @@ $ tox
 <p>To get <strong>flake8</strong>, <strong>mypy</strong>, <strong>bandit</strong> and <strong>tox</strong>, just pip install them into your virtualenv.</p>
 </li>
 <li><p>Run the API service locally via <a class="reference external" href="https://docs.docker.com/compose/">docker-compose</a> to check your changes:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./docker-compose.sh build test_fastapi_github_1
-$ ./docker-compose.sh run --service-ports --rm test_fastapi_github_1
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./docker-compose.sh build test_fastapi_github
+$ ./docker-compose.sh run --service-ports --rm test_fastapi_github
 </pre></div>
 </div>
 <ul>
 <li><p>The service could also run in detached mode with flag <code class="docutils literal notranslate"><span class="pre">-d</span></code>.</p></li>
-<li><p>When the <a class="reference external" href="https://docs.docker.com/compose/">docker-compose</a> starts the service, it will execute the SQL
-script <code class="docutils literal notranslate"><span class="pre">./docker/init.sql</span></code> to create a superuser in <code class="docutils literal notranslate"><span class="pre">AuthUser</span></code> table.
-(The credential of the default user is [username: “dummy”, password: “123456”])</p></li>
 <li><p>To stop and remove the running containers, please execute:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./docker-compose.sh stop &amp;&amp; ./docker-compose.sh rm -f &amp;&amp; ./docker-compose.sh clean
 </pre></div>

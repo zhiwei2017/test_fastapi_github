@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Usage &mdash; test-fastapi-github-1 0.1.0 documentation</title>
+  <title>Usage &mdash; test-fastapi-github 0.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -21,7 +21,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Source" href="03_source.html" />
-    <link rel="prev" title="test-fastapi-github-1" href="01_about.html" /> 
+    <link rel="prev" title="test-fastapi-github" href="01_about.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -33,7 +33,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            test-fastapi-github-1
+            test-fastapi-github
           </a>
               <div class="version">
                 0.1.0
@@ -47,7 +47,7 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="01_about.html">test-fastapi-github-1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01_about.html">test-fastapi-github</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#project-components">Project Components</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a></li>
@@ -82,7 +82,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">test-fastapi-github-1</a>
+          <a href="index.html">test-fastapi-github</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -109,9 +109,6 @@
 </section>
 <section id="database-schemas">
 <h3>Database Schemas<a class="headerlink" href="#database-schemas" title="Permalink to this heading"></a></h3>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">AuthUser</span></code>: stores the user for authentication. <code class="docutils literal notranslate"><span class="pre">username</span></code> and <code class="docutils literal notranslate"><span class="pre">hashed_password</span></code> are required. Only superuser can create new users.</p></li>
-</ul>
 </section>
 </section>
 <section id="local-development">
@@ -150,7 +147,7 @@
 <td><p>User password for database connection.</p></td>
 </tr>
 <tr class="row-even"><td><p>POSTGRES_DB</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">test_fastapi_github_1_dev</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test_fastapi_github_dev</span></code></p></td>
 <td><p>Database name.</p></td>
 </tr>
 </tbody>
@@ -167,19 +164,16 @@ url <code class="docutils literal notranslate"><span class="pre">http://localhos
 <ol class="arabic">
 <li><p>Make sure the service <code class="docutils literal notranslate"><span class="pre">docker</span></code> is running.</p></li>
 <li><p>Build local development docker image via:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./docker-compose.sh build test_fastapi_github_1
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./docker-compose.sh build test_fastapi_github
 </pre></div>
 </div>
 </li>
 <li><p>Run the API Service by:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./docker-compose.sh run --service-ports --rm test_fastapi_github_1
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./docker-compose.sh run --service-ports --rm test_fastapi_github
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>The service could also run in detached mode with flag <code class="docutils literal notranslate"><span class="pre">-d</span></code>.</p></li>
-<li><p>When the <a class="reference external" href="https://docs.docker.com/compose/">docker-compose</a> starts the service, it will execute the SQL
-script <code class="docutils literal notranslate"><span class="pre">./docker/init.sql</span></code> to create a superuser in <code class="docutils literal notranslate"><span class="pre">AuthUser</span></code> table.
-(The credential of the default user is [username: “dummy”, password: “123456”])</p></li>
 </ul>
 </li>
 <li><p>To stop and remove the running containers, please run:</p>
@@ -219,9 +213,10 @@ $ docker run -p 5432:5432 -e POSTGRES_PASSWORD=&#39;mysecretpassword&#39; --rm -
 </pre></div>
 </div>
 </li>
-<li><p>Execute the SQL script <code class="docutils literal notranslate"><span class="pre">./docker/init.sql</span></code> to create a superuser in <code class="docutils literal notranslate"><span class="pre">AuthUser</span></code> table. (The credential of the default user is [username: “dummy”, password: “123456”])</p></li>
+</ol>
+<ol class="arabic" start="7">
 <li><p>Run the service via:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python test_fastapi_github_1/main.py
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python test_fastapi_github/main.py
 </pre></div>
 </div>
 </li>
@@ -237,12 +232,12 @@ due to the amount of single components that need to be used at the same time.</p
 <ol class="arabic">
 <li><p>Make sure the service <code class="docutils literal notranslate"><span class="pre">docker</span></code> is running.</p></li>
 <li><p>Build local development docker image via:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./docker-compose.sh build test_test_fastapi_github_1
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./docker-compose.sh build test_test_fastapi_github
 </pre></div>
 </div>
 </li>
 <li><p>Run the API Service by:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./docker-compose.sh run test_test_fastapi_github_1
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./docker-compose.sh run test_test_fastapi_github
 </pre></div>
 </div>
 </li>
@@ -268,7 +263,6 @@ $ docker run -p 5432:5432 -e POSTGRES_PASSWORD=&#39;mysecretpassword&#39; --rm -
 </pre></div>
 </div>
 </li>
-<li><p>Execute the SQL script <code class="docutils literal notranslate"><span class="pre">./docker/init.sql</span></code> to create a superuser in <code class="docutils literal notranslate"><span class="pre">AuthUser</span></code> table. (The credential of the default user is [username: “dummy”, password: “123456”])</p></li>
 <li><p>Run the service via:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ make test
 </pre></div>
@@ -309,7 +303,7 @@ $ make html
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="01_about.html" class="btn btn-neutral float-left" title="test-fastapi-github-1" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="01_about.html" class="btn btn-neutral float-left" title="test-fastapi-github" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="03_source.html" class="btn btn-neutral float-right" title="Source" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
